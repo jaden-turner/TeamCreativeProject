@@ -299,7 +299,19 @@ namespace SpreadsheetUtilities
                 else if (IsVariable(token, Normalizer, IsValid))
                 {
                     string t = Normalizer(token);
-                    object val = lookup(t);
+
+                    object val;
+
+                    try
+                    {
+                        val = lookup(t);
+                    }
+                    catch(ArgumentException)
+                    { 
+                        return new FormulaError("Formula Error: Could not find value");
+                    }
+
+                    val = lookup(t);
 
                     // If * or / at top of opStack
                     if (opStack.IsOnTop("*", "/"))

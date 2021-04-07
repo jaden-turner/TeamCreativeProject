@@ -117,10 +117,12 @@ namespace SS
                         }
                     }
                 }
+
+                Changed = false;
             }
-            catch (FileNotFoundException)
+            catch
             {
-                throw new SpreadsheetReadWriteException("file not found.");
+                throw new SpreadsheetReadWriteException("file invalid.");
             }
         }
 
@@ -166,6 +168,7 @@ namespace SS
         /// </summary>
         private double LookupCellValue(string name)
         {
+            name = Normalize(name);
             if (!Validate(name))
                 throw new InvalidNameException();
 
@@ -173,7 +176,7 @@ namespace SS
             if (double.TryParse(val.ToString(), out double result))
                 return result;
             else
-                return 0;
+                throw new ArgumentException();
         }
 
         /// <summary>
@@ -261,7 +264,25 @@ namespace SS
             {
                 // Contents is a Formula
                 if (content[0] == '=')
-                    dependencies = SetCellContents(name, new Formula(content.Substring(1), Normalize, IsValid));
+                {
+                    try
+                    {
+                        dependencies = SetCellContents(name, new Formula(content.Substring(1), Normalize, IsValid));
+                    }
+                    catch(FormulaFormatException e)
+                    {
+                        Cell before;
+                        if (nonEmptyCells.TryGetValue(name, out Cell value))
+                            before = value;
+                        else
+                            before = new Cell("");
+                        dependencies = SetContentsOfCell(name, before.Contents.ToString());
+
+                        throw e;
+                    }
+                    
+                }
+                   
 
                 //Contents is a string
                 else
@@ -367,37 +388,45 @@ namespace SS
         /// </summary>
         protected override IList<string> SetCellContents(string name, Formula formula)
         {
-            // For Circular Exceptions
-            Cell prevVal = null;
 
-            // Check if cell already has a value
-            if (nonEmptyCells.ContainsKey(name))
-            {
-                // replace cell value in nonEmptyCells
-                prevVal = nonEmptyCells[name]; // Store previous value in case of circular exception
-                nonEmptyCells[name] = new Cell(formula, LookupCellValue);
-            }
+            string current;
+            if (nonEmptyCells.TryGetValue(name, out Cell c))
+                current = c.Contents.ToString();
             else
-                // add to nonEmptyCells
-                nonEmptyCells.Add(name, new Cell(formula, LookupCellValue));
+                current = "";
 
-            // Removes (if any existed) dependees of name with variables in formula
-            // and adds new dependencies(if any).
-            this.dependencies.ReplaceDependees(name, formula.GetVariables());
-
-            // If Circular Exception is thrown, change cell value back.
-            IList<string> dependencies = new List<string>();
             try
             {
-                dependencies = GetCellsToRecalculate(name).ToList();
+                // if we have something in the cell already, change it
+                if (nonEmptyCells.ContainsKey(name))
+                    nonEmptyCells[name] = new Cell(formula, LookupCellValue);
+
+                // else create new spot for new cell
+                else
+                    nonEmptyCells.Add(name, new Cell(formula, LookupCellValue));
+
+                // update our cells dependees with the variables in its formula
+                this.dependencies.ReplaceDependees(name, formula.GetVariables());
+
+                // the cells we now need to recalculate
+                IEnumerable<string> recalculate = GetCellsToRecalculate(name);
+
+                // get all dependents of the cell, add to list
+                List<string> list = new List<string>();
+
+                foreach (string val in recalculate)
+                {
+                    list.Add(val);
+                }
+
+                // return list of new cells dependents and of cell
+                return list;
             }
             catch (CircularException e)
             {
-                nonEmptyCells[name] = prevVal;
+                SetContentsOfCell(name, current);
                 throw e;
             }
-
-            return dependencies;
         }
 
         /// <summary>

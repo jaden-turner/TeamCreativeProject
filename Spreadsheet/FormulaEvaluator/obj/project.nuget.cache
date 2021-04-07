@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "eYA5pZ9rctKrpxMip88LKMR0UBjWch7Q0i4h3HCdQZ+tS9dY10g4zYvH/lgEVwNCZkISSaEOVeWe0CmslhQemA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluator\\FormulaEvaluator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Samge\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Samge\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

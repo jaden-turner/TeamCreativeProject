@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,7 +67,29 @@ namespace SpreadsheetGUI
 
             // Start an application context and run one form inside it
             DemoApplicationContext appContext = DemoApplicationContext.getAppContext();
-            appContext.RunForm(new Form1());
+            //appContext.RunForm(new Spreadsheet());
+
+            // Open the connection prompt
+            ConnectionPrompt popup = new ConnectionPrompt();
+            Application.Run(popup);
+
+            // Capture the result
+            string IPaddress = popup.getIPAddress();
+            string userName = popup.getUserName();
+
+            if (IPaddress == "")
+                return;
+
+            // Open connection with server
+            SpreadsheetController ssCtrl = new SpreadsheetController();
+            
+            // TODO:
+            // Open display of available spreadsheets
+            // Prompt user input
+
+            // Open a spreadsheet form
+            SpreadsheetForm ssForm = new SpreadsheetForm(ssCtrl);
+            appContext.RunForm(ssForm);
             Application.Run(appContext);
         }
     }

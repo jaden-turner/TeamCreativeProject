@@ -5766,19 +5766,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Samge\\.nuget\\packages\\": {}
+    "C:\\Users\\tneda\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\SpreadsheetTests.csproj",
+      "projectUniqueName": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\SpreadsheetTests.csproj",
       "projectName": "SpreadsheetTests",
-      "projectPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\SpreadsheetTests.csproj",
-      "packagesPath": "C:\\Users\\Samge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\obj\\",
+      "projectPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\SpreadsheetTests.csproj",
+      "packagesPath": "C:\\Users\\tneda\\.nuget\\packages\\",
+      "outputPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\SpreadsheetTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Samge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tneda\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5790,10 +5790,9 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj": {
-              "projectPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj"
+            "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj": {
+              "projectPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj"
             }
           }
         }
@@ -5806,7 +5805,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "MSTest.TestAdapter": {
             "target": "Package",
@@ -5840,7 +5838,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

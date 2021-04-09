@@ -27,19 +27,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Samge\\.nuget\\packages\\": {}
+    "C:\\Users\\tneda\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\FormulaEvaluatorTest.csproj",
+      "projectUniqueName": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\FormulaEvaluatorTest.csproj",
       "projectName": "FormulaEvaluatorTest",
-      "projectPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\FormulaEvaluatorTest.csproj",
-      "packagesPath": "C:\\Users\\Samge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\obj\\",
+      "projectPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\FormulaEvaluatorTest.csproj",
+      "packagesPath": "C:\\Users\\tneda\\.nuget\\packages\\",
+      "outputPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluatorEXE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Samge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tneda\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -51,10 +51,9 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluator\\FormulaEvaluator.csproj": {
-              "projectPath": "C:\\Users\\Samge\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluator\\FormulaEvaluator.csproj"
+            "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluator\\FormulaEvaluator.csproj": {
+              "projectPath": "G:\\source\\repos\\TeamCreativeProject\\Spreadsheet\\FormulaEvaluator\\FormulaEvaluator.csproj"
             }
           }
         }
@@ -67,7 +66,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -83,7 +81,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

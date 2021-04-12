@@ -23,9 +23,15 @@ namespace SpreadsheetGUI
         /// <summary>
         /// Creates a new window displaying an empty spreadsheet
         /// </summary>
-        public SpreadsheetForm(SpreadsheetController ssCtrl)
+        public SpreadsheetForm(SpreadsheetController ssCtrl, string ssName)
         {
             controller = ssCtrl;
+
+            // Event listeners
+            ssCtrl.Error += ShowError;
+            ssCtrl.Update += UpdateSpreadsheet;
+
+            // Basic Spreadsheet
 
             // the name of the form
             this.Text = "Untitled Spreadsheet";
@@ -44,6 +50,9 @@ namespace SpreadsheetGUI
 
             // call the method to update selection
             OnSelectionChanged(spreadsheetPanel1);
+
+            // Select Spreadsheet from server
+            ssCtrl.selectSpreadsheet(ssName);
         }
 
         /// <summary>
@@ -52,6 +61,11 @@ namespace SpreadsheetGUI
         private void ShowError(string errorMessage)
         {
             MessageBox.Show(errorMessage);
+        }
+
+        private void UpdateSpreadsheet()
+        {
+
         }
 
         /// <summary>

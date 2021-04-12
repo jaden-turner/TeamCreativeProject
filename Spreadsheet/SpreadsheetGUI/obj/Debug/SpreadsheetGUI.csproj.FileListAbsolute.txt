@@ -21,3 +21,4 @@ G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetGUI\obj\Debug\Spreads
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetGUI\bin\Debug\SpreadsheetController.dll
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetGUI\bin\Debug\NetworkController.dll
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetGUI\bin\Debug\SpreadsheetController.pdb
+G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.SelectionPrompt.resources

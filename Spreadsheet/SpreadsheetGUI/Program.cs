@@ -77,18 +77,29 @@ namespace SpreadsheetGUI
             string IPaddress = popup.getIPAddress();
             string userName = popup.getUserName();
 
+            popup.Dispose();
+
+            // Prompt window was closed
             if (IPaddress == "")
                 return;
 
-            // Open connection with server
             SpreadsheetController ssCtrl = new SpreadsheetController();
-            
-            // TODO:
-            // Open display of available spreadsheets
+
             // Prompt user input
+            SelectionPrompt selPmt = new SelectionPrompt(ssCtrl, IPaddress, userName);
+            Application.Run(selPmt);
+
+            // Capture the result
+            string ssName = selPmt.selection;
+
+            selPmt.Dispose();
+
+            // Seleciton window was closed
+            if (selPmt.selection == "")
+                return;
 
             // Open a spreadsheet form
-            SpreadsheetForm ssForm = new SpreadsheetForm(ssCtrl);
+            SpreadsheetForm ssForm = new SpreadsheetForm(ssCtrl, ssName);
             appContext.RunForm(ssForm);
             Application.Run(appContext);
         }

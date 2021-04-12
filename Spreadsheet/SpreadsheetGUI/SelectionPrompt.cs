@@ -14,6 +14,7 @@ namespace SpreadsheetGUI
     public partial class SelectionPrompt : Form
     {
         public string selection = "";
+        public bool errorOccured = false;
         SpreadsheetController controller;
 
         public SelectionPrompt(SpreadsheetController ssCtrl, string IPaddress, string userName)
@@ -33,8 +34,8 @@ namespace SpreadsheetGUI
 
         private void ShowError(string errorMsg)
         {
-            MessageBox.Show("errorMsg");
-            this.Close();
+            errorOccured = true;
+            MessageBox.Show(errorMsg);
         }
 
         private void SelectionButton_Click(object sender, EventArgs e)

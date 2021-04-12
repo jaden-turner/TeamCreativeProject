@@ -87,6 +87,7 @@ namespace SpreadsheetGUI
 
             // Prompt user input
             SelectionPrompt selPmt = new SelectionPrompt(ssCtrl, IPaddress, userName);
+            if(!selPmt.errorOccured)
             Application.Run(selPmt);
 
             // Capture the result

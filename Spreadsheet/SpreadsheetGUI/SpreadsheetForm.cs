@@ -9,19 +9,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Controller;
 
 namespace SpreadsheetGUI
 {
 
     public delegate void TextBoxContentsChangedHandler(SpreadsheetPanel sender);
 
-    public partial class Form1 : Form
+    public partial class SpreadsheetForm : Form
     {
+        private SpreadsheetController controller;
+
         /// <summary>
         /// Creates a new window displaying an empty spreadsheet
         /// </summary>
-        public Form1()
+        public SpreadsheetForm(SpreadsheetController ssCtrl, string ssName)
         {
+            controller = ssCtrl;
+
+            // Event listeners
+            ssCtrl.Error += ShowError;
+            ssCtrl.Update += UpdateSpreadsheet;
+
+            // Basic Spreadsheet
+
             // the name of the form
             this.Text = "Untitled Spreadsheet";
 
@@ -39,6 +50,22 @@ namespace SpreadsheetGUI
 
             // call the method to update selection
             OnSelectionChanged(spreadsheetPanel1);
+
+            // Select Spreadsheet from server
+            ssCtrl.selectSpreadsheet(ssName);
+        }
+
+        /// <summary>
+        /// Handler for the controller's Error event
+        /// </summary>
+        private void ShowError(string errorMessage)
+        {
+            MessageBox.Show(errorMessage);
+        }
+
+        private void UpdateSpreadsheet()
+        {
+
         }
 
         /// <summary>
@@ -180,7 +207,8 @@ namespace SpreadsheetGUI
         {
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            Program.DemoApplicationContext.getAppContext().RunForm(new Form1());
+            //TODO
+            //Program.DemoApplicationContext.getAppContext().RunForm(new SpreadsheetForm());
         }
 
         /// <summary>
@@ -225,7 +253,7 @@ namespace SpreadsheetGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+        private void SpreadsheetForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (CheckChanged(sender, e))
                 e.Cancel = true;

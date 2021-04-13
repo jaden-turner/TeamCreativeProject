@@ -29,7 +29,9 @@ namespace SpreadsheetGUI
 
             // Event listeners
             ssCtrl.Error += ShowError;
-            ssCtrl.Update += UpdateSpreadsheet;
+            ssCtrl.ssUpdate += UpdateSpreadsheet;
+            //ssCtrl.SelectionUpdate += OnSelectionChanged;
+
 
             // Basic Spreadsheet
 

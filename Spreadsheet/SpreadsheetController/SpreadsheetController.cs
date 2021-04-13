@@ -14,7 +14,9 @@ namespace Controller
     {
         // Controller events that the view can subscribe to
         public delegate void UpdateFromServer();
-        public event UpdateFromServer Update;
+        public event UpdateFromServer ssUpdate;
+        public delegate void SelectionChanged();
+        public event SelectionChanged SelectionUpdate;
         public delegate void ConnectedHandler(string[] ssNames);
         public event ConnectedHandler Connected;
         public delegate void ErrorHandler(string err);
@@ -22,6 +24,7 @@ namespace Controller
 
         // private variables
         private String userName;
+        private int clientID = int.MinValue;
         private StringBuilder jsonInfo;
 
         // state representing the connection to the server
@@ -121,11 +124,85 @@ namespace Controller
         }
 
         /// <summary>
-        /// Recieves data from the server
+        /// Recieves an update from the server.
+        /// Continues the update event loop.
         /// </summary>
-        /// <param name="state">The SocketState containing our server</param>
+        /// <param name="state"></param>
         private void receiveUpdate(SocketState state)
         {
+            if(state.ErrorOccured)
+            {
+                Error("Error while receiving update from server.");
+                return;
+            }
+
+            processData(state);
+
+            // Continue event loop
+            Networking.GetData(state);
+        }
+
+        /// <summary>
+        /// Parses the instructions recieved from the server
+        /// </summary>
+        /// <param name="state"></param>
+        private void processData(SocketState state)
+        {
+            // get the Json information
+            string jsonInfo = state.GetData();
+
+            // split it into actual messages
+            string[] updates = Regex.Split(jsonInfo, @"(?<=[\n])");
+
+            foreach (string instruction in updates)
+            {
+                // Ignore empty strings from Regex Splitter
+                if (instruction.Length == 0)
+                    continue;
+                // The regex splitter will include the last string even if it doesn't end with a '\n',
+                // So we need to ignore it if this happens. 
+                if (instruction[instruction.Length - 1] != '\n')
+                    break;
+
+                UpdateSpreadsheet(instruction);
+
+                // remove the data we just processed from the state's buffer
+                state.RemoveData(0, instruction.Length);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="instruction"></param>
+        private void UpdateSpreadsheet(string instruction)
+        {
+            if(instruction.Contains("cellUpdated"))
+            {
+
+            }
+            else if(instruction.Contains("cellSelected"))
+            {
+
+            }
+            else if (clientID == int.MinValue)
+            {
+                // Assign client ID
+                if (int.TryParse(instruction, out int ID))
+                    clientID = ID;
+            }
+            else if(instruction.Contains("disconnected"))
+            {
+
+            }
+            else if(instruction.Contains("requestError"))
+            {
+
+            }
+            else if(instruction.Contains("serverError"))
+            {
+
+            }
         }
     }
 }

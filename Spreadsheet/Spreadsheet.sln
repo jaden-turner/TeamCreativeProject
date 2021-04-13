@@ -32,7 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E6A5366-35E7-44E8-A33F-D68807205395}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadsheetController", "SpreadsheetController\SpreadsheetController.csproj", "{CD63B342-6146-4F95-B3A4-926B3D5296E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadsheetController", "SpreadsheetController\SpreadsheetController.csproj", "{CD63B342-6146-4F95-B3A4-926B3D5296E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingPanel", "DrawingPanel\DrawingPanel.csproj", "{26357946-1C7E-4B84-A75C-2BBFA381E737}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{CD63B342-6146-4F95-B3A4-926B3D5296E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD63B342-6146-4F95-B3A4-926B3D5296E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD63B342-6146-4F95-B3A4-926B3D5296E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26357946-1C7E-4B84-A75C-2BBFA381E737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26357946-1C7E-4B84-A75C-2BBFA381E737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26357946-1C7E-4B84-A75C-2BBFA381E737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26357946-1C7E-4B84-A75C-2BBFA381E737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,3 +10,15 @@ G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.csproj.CopyComplete
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.dll
 G:\source\repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.pdb
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\bin\Debug\netstandard2.0\SpreadsheetController.deps.json
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\bin\Debug\netstandard2.0\SpreadsheetController.dll
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\bin\Debug\netstandard2.0\SpreadsheetController.pdb
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\bin\Debug\netstandard2.0\NetworkController.dll
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\bin\Debug\netstandard2.0\Newtonsoft.Json.dll
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.csprojAssemblyReference.cache
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.AssemblyInfoInputs.cache
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.AssemblyInfo.cs
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.csproj.CoreCompileInputs.cache
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.csproj.CopyComplete
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.dll
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetController\obj\Debug\netstandard2.0\SpreadsheetController.pdb

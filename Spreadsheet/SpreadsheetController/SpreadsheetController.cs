@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using NetworkUtil;
@@ -22,6 +23,8 @@ namespace Controller
 
         // private variables
         private String userName;
+        private int clientID = int.MinValue;
+        private List<int> clientList = new List<int>();
         private StringBuilder jsonInfo;
 
         // state representing the connection to the server
@@ -121,11 +124,108 @@ namespace Controller
         }
 
         /// <summary>
-        /// Recieves data from the server
+        /// Recieves an update from the server.
+        /// Continues the update event loop.
         /// </summary>
-        /// <param name="state">The SocketState containing our server</param>
+        /// <param name="state"></param>
         private void receiveUpdate(SocketState state)
         {
+            if (state.ErrorOccured)
+            {
+                Error("Error while receiving update from server.");
+                return;
+            }
+
+            processData(state);
+
+            // Continue event loop
+            Networking.GetData(state);
         }
+
+        /// <summary>
+        /// Parses the instructions recieved from the server
+        /// </summary>
+        /// <param name="state"></param>
+        private void processData(SocketState state)
+        {
+            // get the Json information
+            string jsonInfo = state.GetData();
+
+            // split it into actual messages
+            string[] updates = Regex.Split(jsonInfo, @"(?<=[\n])");
+
+            foreach (string instruction in updates)
+            {
+                // Ignore empty strings from Regex Splitter
+                if (instruction.Length == 0)
+                    continue;
+                // The regex splitter will include the last string even if it doesn't end with a '\n',
+                // So we need to ignore it if this happens. 
+                if (instruction[instruction.Length - 1] != '\n')
+                    break;
+
+                UpdateSpreadsheet(instruction);
+
+                // remove the data we just processed from the state's buffer
+                state.RemoveData(0, instruction.Length);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="instruction"></param>
+        private void UpdateSpreadsheet(string instruction)
+        {
+            if (instruction.Contains("cellUpdated"))
+            {
+
+            }
+            else if (instruction.Contains("cellSelected"))
+            {
+
+            }
+            else if (clientID == int.MinValue)
+            {
+                // Assign client ID
+                if (int.TryParse(instruction, out int ID))
+                    clientID = ID;
+                    addClients(ID);
+            }
+            else if (instruction.Contains("disconnected"))
+            {
+
+            }
+            else if (instruction.Contains("requestError"))
+            {
+
+            }
+            else if (instruction.Contains("serverError"))
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Add the client id into the clientlist
+        /// </summary>
+        /// <param name="clientID"></param>
+        private void addClients(int clientID)
+        {
+            if (clientID != int.MinValue)
+            {
+                clientList.Add(clientID);
+            }
+        }
+
+        /// <summary>
+        /// Get a list of clients that are currently connected to the server
+        /// </summary>
+        /// <returns></returns>
+        public List<int> getClientIDList()
+        {
+            return clientList;
+        }
+
     }
 }

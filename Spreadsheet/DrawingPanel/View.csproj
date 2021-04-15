@@ -42,5 +42,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpreadsheetController\SpreadsheetController.csproj">
+      <Project>{CD63B342-6146-4F95-B3A4-926B3D5296E2}</Project>
+      <Name>SpreadsheetController</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

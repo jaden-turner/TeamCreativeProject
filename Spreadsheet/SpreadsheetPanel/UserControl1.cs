@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Controller;
 using SpreadsheetUtilities;
 
 
@@ -477,6 +478,55 @@ namespace SS
                 Invalidate();
             }
 
+            /// <summary>
+            /// A method that will daraw the client's color and let other know which user is editing which cell.
+            /// </summary>
+            /// <returns></returns>
+            public Pen DrawClientColor()
+            {
+                Pen pen = new Pen(Color.Black);
+                SpreadsheetController controller = new SpreadsheetController();
+
+                foreach(int id in controller.getClientIDList())
+                {
+                    switch(id)
+                    {
+                        case 0:
+                            pen = new Pen(Color.Blue);
+                            break;
+                        case 1:
+                            pen = new Pen(Color.DarkMagenta);
+                            break;
+                        case 2:
+                            pen = new Pen(Color.Green);
+                            break;
+                        case 3:
+                            pen = new Pen(Color.Red);
+                            break;
+                        case 4:
+                            pen = new Pen(Color.Violet);
+                            break;
+                        case 5:
+                            pen = new Pen(Color.Purple);
+                            break;
+                        case 6:
+                            pen = new Pen(Color.Orange);
+                            break;
+                        case 7:
+                            pen = new Pen(Color.Yellow);
+                            break;
+                        case 8:
+                            pen = new Pen(Color.Aquamarine);
+                            break;
+                        default:
+                            pen = new Pen(Color.Brown);
+                            break;
+                    }
+                }
+
+                return pen;
+            }
+
             protected override void OnPaint(PaintEventArgs e)
             {
 
@@ -495,6 +545,7 @@ namespace SS
                 // Pen, brush, and fonts to use
                 Brush brush = new SolidBrush(fontColor);
                 Pen pen = new Pen(brush);
+               // Pen pen2 = new Pen(Color.Blue);
                 Font regularFont = Font;
                 Font boldFont = new Font(regularFont, FontStyle.Bold);
 
@@ -538,7 +589,7 @@ namespace SS
                 if ((_selectedCol - _firstColumn >= 0) && (_selectedRow - _firstRow >= 0))
                 {
                     e.Graphics.DrawRectangle(
-                        pen,
+                        DrawClientColor(),
                         new Rectangle(LABEL_COL_WIDTH + (_selectedCol - _firstColumn) * DATA_COL_WIDTH + 1,
                                       LABEL_ROW_HEIGHT + (_selectedRow - _firstRow) * DATA_ROW_HEIGHT + 1,
                                       DATA_COL_WIDTH - 2,

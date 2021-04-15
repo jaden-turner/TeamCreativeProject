@@ -1,16 +1,20 @@
 ﻿using Controller;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SpreadsheetGUI
 {
     static class Program
+    //class Program
     {
 
         private static SpreadsheetController ssCtrl = new SpreadsheetController();
+
         /// <summary>
         /// Keeps track of how many top-level forms are running
         /// </summary>
@@ -59,23 +63,23 @@ namespace SpreadsheetGUI
 
         }
 
-        //Handle mouse down when the user click on the cell
-        private static void HandleMouseDown(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-            {
-                ssCtrl.HandleMouseRequest();
-            }
-        }
+        ////Handle mouse down when the user click on the cell
+        //private void HandleMouseDown(object sender, MouseEventArgs e)
+        //{
+        //    if(e.Button == MouseButtons.Left)
+        //    {
+        //       // ssCtrl.HandleMouseRequest();
+        //    }
+        //}
 
-        //Handle mouse up when the user click on the cell
-        private static void HandleMouseUp(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-            {
-                sssCtrl.CancelMouseRequest();
-            }
-        }
+        ////Handle mouse up when the user click on the cell
+        //private void HandleMouseUp(object sender, MouseEventArgs e)
+        //{
+        //    if(e.Button == MouseButtons.Left)
+        //    {
+        //        //ssCtrl.CancelMouseRequest();
+        //    }
+        //}
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -83,7 +87,7 @@ namespace SpreadsheetGUI
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+          //  Application.SetCompatibleTextRenderingDefault(false);
 
             // Start an application context and run one form inside it
             DemoApplicationContext appContext = DemoApplicationContext.getAppContext();
@@ -103,7 +107,7 @@ namespace SpreadsheetGUI
             //if (IPaddress == "")
             //    return;
 
-           
+
 
             //// Prompt user input
             //SelectionPrompt selPmt = new SelectionPrompt(ssCtrl, IPaddress, userName);
@@ -119,11 +123,14 @@ namespace SpreadsheetGUI
             //if (selPmt.selection == "")
             //    return;
 
+
+
             // Open a spreadsheet form
             // SpreadsheetForm ssForm = new SpreadsheetForm(ssCtrl, ssName);
             SpreadsheetForm ssForm = new SpreadsheetForm(ssCtrl, "testing");
             appContext.RunForm(ssForm);
             Application.Run(appContext);
+            }
         }
     }
-}
+

@@ -15,7 +15,9 @@ namespace Controller
     {
         // Controller events that the view can subscribe to
         public delegate void UpdateFromServer();
-        public event UpdateFromServer Update;
+        public event UpdateFromServer ssUpdate;
+        public delegate void SelectionChanged();
+        public event SelectionChanged SelectionUpdate;
         public delegate void ConnectedHandler(string[] ssNames);
         public event ConnectedHandler Connected;
         public delegate void ErrorHandler(string err);
@@ -24,8 +26,8 @@ namespace Controller
         // private variables
         private String userName;
         private int clientID = int.MinValue;
-        private List<int> clientList = new List<int>();
         private StringBuilder jsonInfo;
+        private List<int> clientList = new List<int>();
 
         // state representing the connection to the server
         SocketState theServer = null;
@@ -190,7 +192,7 @@ namespace Controller
                 // Assign client ID
                 if (int.TryParse(instruction, out int ID))
                     clientID = ID;
-                    addClients(ID);
+                    //addClients(ID);
             }
             else if (instruction.Contains("disconnected"))
             {

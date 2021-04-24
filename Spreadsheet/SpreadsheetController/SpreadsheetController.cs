@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using NetworkUtil;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SS;
 
 namespace Controller
 {
@@ -16,8 +18,10 @@ namespace Controller
         // Controller events that the view can subscribe to
         public delegate void UpdateFromServer();
         public event UpdateFromServer ssUpdate;
-        public delegate void SelectionChanged();
-        public event SelectionChanged SelectionUpdate;
+        public delegate void UpdateError(string message);
+        public event UpdateError ssUpdateError;
+       // public delegate void SelectionChanged();
+        //public event SelectionChanged SelectionUpdate;
         public delegate void ConnectedHandler(string[] ssNames);
         public event ConnectedHandler Connected;
         public delegate void ErrorHandler(string err);
@@ -28,9 +32,10 @@ namespace Controller
         private int clientID = int.MinValue;
         private StringBuilder jsonInfo;
         private List<int> clientList = new List<int>();
+        private Spreadsheet sheet = new Spreadsheet();
 
         // state representing the connection to the server
-        SocketState theServer = null;
+        public SocketState theServer = null;
 
         /// <summary>
         /// Atttemps to connect to a server from a given address.
@@ -179,33 +184,63 @@ namespace Controller
         /// <param name="instruction"></param>
         private void UpdateSpreadsheet(string instruction)
         {
-            if (instruction.Contains("cellUpdated"))
-            {
-
-            }
-            else if (instruction.Contains("cellSelected"))
-            {
-
-            }
-            else if (clientID == int.MinValue)
-            {
+            if (clientID == int.MinValue)
+            { 
                 // Assign client ID
                 if (int.TryParse(instruction, out int ID))
                     clientID = ID;
-                    //addClients(ID);
             }
-            else if (instruction.Contains("disconnected"))
+
+            JObject jObj = JObject.Parse(instruction);
+
+           // string deserializedMessageType = JsonConvert.DeserializeObject<string>(instruction);
+
+            string deserializeMessage = jObj["messageType"].ToString();
+            if (instruction.Contains("cellUpdate"))
             {
+                string deserializedName = jObj["cellName"].ToString();
+                string deserializedcontents = jObj["contents"].ToString();
+
+                sheet.SetContentsOfCell(deserializedName, deserializedcontents);
+            }
+            else if(instruction.Contains("cellSelected"))
+            {
+                //string deserializedName = jObj["cellName"].ToString();
+                //string deserializedSelector = jObj["selector"].ToString();
+                //string deserializedSelectorName = jObj["selectorName"].ToString();
+
+                //Add the client ID to the client list
+                if (int.TryParse(instruction, out int ID))
+                {
+                    addClients(ID);
+                }
+            }
+            else if(instruction.Contains("disconnected"))
+            {
+                string deserializedID = jObj["user"].ToString();
+                if (int.TryParse(deserializedID, out int ID))
+                {
+                    removeClients(ID);
+                }
 
             }
-            else if (instruction.Contains("requestError"))
+            else if(instruction.Contains("requestError"))
             {
-
+                string deserializedMessage = jObj["message"].ToString();
+                ssUpdateError(deserializedMessage);
             }
-            else if (instruction.Contains("serverError"))
+            else if(instruction.Contains("serverError"))
             {
-
+                string deserializedMessage = jObj["message"].ToString();
+                ssUpdateError(deserializedMessage);
             }
+
+            ssUpdate();
+        }
+
+        private void getSocketState(SocketState state)
+        {
+
         }
 
         /// <summary>
@@ -218,6 +253,15 @@ namespace Controller
             {
                 clientList.Add(clientID);
             }
+        }
+
+        /// <summary>
+        /// Remove the client id from the clientlist
+        /// </summary>
+        /// <param name="clientID"></param>
+        private void removeClients(int clientID)
+        {
+            clientList.Remove(clientID);
         }
 
         /// <summary>

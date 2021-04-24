@@ -25,6 +25,40 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "DependencyGraph/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DependencyGraph.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DependencyGraph.dll": {}
+        }
+      },
+      "Formula/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Formula.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Formula.dll": {}
+        }
+      },
+      "Spreadsheet/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "DependencyGraph": "1.0.0",
+          "Formula": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Spreadsheet.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Spreadsheet.dll": {}
+        }
       }
     }
   },
@@ -172,11 +206,27 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "DependencyGraph/1.0.0": {
+      "type": "project",
+      "path": "../DependencyGraph/DependencyGraph.csproj",
+      "msbuildProject": "../DependencyGraph/DependencyGraph.csproj"
+    },
+    "Formula/1.0.0": {
+      "type": "project",
+      "path": "../Formula/Formula.csproj",
+      "msbuildProject": "../Formula/Formula.csproj"
+    },
+    "Spreadsheet/1.0.0": {
+      "type": "project",
+      "path": "../Spreadsheet/Spreadsheet.csproj",
+      "msbuildProject": "../Spreadsheet/Spreadsheet.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "NETStandard.Library >= 2.0.3"
+      "NETStandard.Library >= 2.0.3",
+      "Spreadsheet >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -204,7 +254,11 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\find\\Source\\Repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj": {
+              "projectPath": "C:\\Users\\find\\Source\\Repos\\TeamCreativeProject\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

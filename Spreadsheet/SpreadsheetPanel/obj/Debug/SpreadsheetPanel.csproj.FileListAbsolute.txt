@@ -35,3 +35,4 @@ C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetPanel\obj\
 C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetPanel\bin\Debug\SpreadsheetController.dll
 C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetPanel\bin\Debug\NetworkController.dll
 C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetPanel\bin\Debug\SpreadsheetController.pdb
+C:\Users\find\Source\Repos\TeamCreativeProject\Spreadsheet\SpreadsheetPanel\bin\Debug\Newtonsoft.Json.dll

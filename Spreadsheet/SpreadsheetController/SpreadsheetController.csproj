@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Spreadsheet\Spreadsheet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="NetworkController">
       <HintPath>..\Libraries\NetworkController.dll</HintPath>
     </Reference>

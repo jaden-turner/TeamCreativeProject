@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Controller;
+using NetworkUtil;
 
 namespace SpreadsheetGUI
 {
@@ -19,6 +20,7 @@ namespace SpreadsheetGUI
     public partial class SpreadsheetForm : Form
     {
         private SpreadsheetController controller;
+        private bool error = false;
 
         /// <summary>
         /// Creates a new window displaying an empty spreadsheet
@@ -30,6 +32,7 @@ namespace SpreadsheetGUI
             // Event listeners
             ssCtrl.Error += ShowError;
             ssCtrl.ssUpdate += UpdateSpreadsheet;
+            ssCtrl.ssUpdateError += UpdateError;
             //ssCtrl.SelectionUpdate += OnSelectionChanged;
 
 
@@ -67,7 +70,21 @@ namespace SpreadsheetGUI
 
         private void UpdateSpreadsheet()
         {
+            try
+            {
+                MethodInvoker invalidator = new MethodInvoker(() => this.Invalidate(true));
+                this.Invoke(invalidator);
+            }
+            catch(Exception)
+            {
 
+            }
+        }
+
+        private void UpdateError(string message)
+        {
+            error = true;
+            MessageBox.Show(message);
         }
 
         /// <summary>
@@ -255,10 +272,15 @@ namespace SpreadsheetGUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        //  private void SpreadsheetForm_FormClosing(object sender, FormClosingEventArgs e)
         private void SpreadsheetForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             if (CheckChanged(sender, e))
                 e.Cancel = true;
+
+            //Close the socket and let the server know that the client has been disconnected
+            Networking.SendAndClose(controller.theServer.TheSocket, "");
 
         }
 

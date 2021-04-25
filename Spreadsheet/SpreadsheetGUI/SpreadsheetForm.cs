@@ -16,11 +16,17 @@ namespace SpreadsheetGUI
 {
 
     public delegate void TextBoxContentsChangedHandler(SpreadsheetPanel sender);
+   
 
     public partial class SpreadsheetForm : Form
     {
         private SpreadsheetController controller;
         private bool error = false;
+
+       // public delegate void UpdateSelection(string cellName);
+        //public event UpdateSelection ssSelection;
+        //public delegate void EditSelection(string cellContents);
+        //public event EditSelection ssEdit;
 
         /// <summary>
         /// Creates a new window displaying an empty spreadsheet
@@ -70,15 +76,19 @@ namespace SpreadsheetGUI
 
         private void UpdateSpreadsheet()
         {
-            try
-            {
-                MethodInvoker invalidator = new MethodInvoker(() => this.Invalidate(true));
-                this.Invoke(invalidator);
-            }
-            catch(Exception)
-            {
+            //try
+            //{
+            //    MethodInvoker invalidator = new MethodInvoker(() => this.Invalidate(true));
+            //    this.Invoke(invalidator);
+            //}
+            //catch (Exception)
+            //{
 
-            }
+            //}
+            spreadsheetPanel1.GetSelection(out int col, out int row);
+            spreadsheetPanel1.GetValue(col, row, out string val);
+            textBoxCellValue.Text = val;
+            textBoxCellContents.Text = spreadsheetPanel1.GetContents(col, row);
         }
 
         private void UpdateError(string message)
@@ -135,10 +145,11 @@ namespace SpreadsheetGUI
                 TextBox t = (TextBox)sender;
                 string contents = t.Text.ToString();
                 spreadsheetPanel1.GetSelection(out int col, out int row);
-                spreadsheetPanel1.SetContents(col, row, contents);
-                spreadsheetPanel1.GetValue(col, row, out string val);
-                textBoxCellValue.Text = val;
-                textBoxCellContents.Text = spreadsheetPanel1.GetContents(col, row);
+                controller.setCellContents(contents);
+                controller.setCellName(ConvertCellName(col, row));
+
+                //spreadsheetPanel1.SetContents(col, row, contents);
+                Update();
                 e.Handled = true;
             }
         }

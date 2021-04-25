@@ -33,6 +33,8 @@ namespace Controller
         private StringBuilder jsonInfo;
         private List<int> clientList = new List<int>();
         private Spreadsheet sheet = new Spreadsheet();
+        private string contents = "";
+        private string cellName = "";
 
         // state representing the connection to the server
         public SocketState theServer = null;
@@ -176,6 +178,11 @@ namespace Controller
                 // remove the data we just processed from the state's buffer
                 state.RemoveData(0, instruction.Length);
             }
+
+            //What user inputs happened during the last frame, process them
+            ProcessInputs();
+
+            Networking.GetData(state);
         }
 
         /// <summary>
@@ -235,12 +242,29 @@ namespace Controller
                 ssUpdateError(deserializedMessage);
             }
 
-            ssUpdate();
+            if (ssUpdate != null)
+            {
+                ssUpdate();
+            }
+
         }
 
-        private void getSocketState(SocketState state)
+       public void ProcessInputs()
         {
+            StringBuilder sb = new StringBuilder();
+            if(!contents.Equals(""))
+            {
+                sb.Append(JsonConvert.SerializeObject("requestType:" + "editCell" + "\n"));
+                sb.Append(JsonConvert.SerializeObject("cellName:" + cellName + "\n"));
+                sb.Append(JsonConvert.SerializeObject("contents:" + contents + "\n"));
+            }
+            else if(!cellName.Equals(""))
+            {
+                sb.Append(JsonConvert.SerializeObject("requestType:" + "selectCell" + "\n"));
+                sb.Append(JsonConvert.SerializeObject("cellName:" + cellName + "\n"));
+            }
 
+            Networking.Send(theServer.TheSocket, sb.ToString());
         }
 
         /// <summary>
@@ -273,5 +297,22 @@ namespace Controller
             return clientList;
         }
 
+        /// <summary>
+        /// Set the cell Contents
+        /// </summary>
+        /// <param name="contents"></param>
+        public void setCellContents(string contents)
+        {
+            this.contents = contents;
+        }
+
+        /// <summary>
+        /// Set the cell name
+        /// </summary>
+        /// <param name="cellName"></param>
+        public void setCellName(string cellName)
+        {
+            this.cellName = cellName;
+        }
     }
 }

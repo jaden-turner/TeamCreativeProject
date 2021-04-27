@@ -20,12 +20,16 @@ namespace Controller
         public event UpdateFromServer ssUpdate;
         public delegate void UpdateError(string message);
         public event UpdateError ssUpdateError;
-       // public delegate void SelectionChanged();
-        //public event SelectionChanged SelectionUpdate;
+        // public delegate void SelectionChanged();
+        // public event SelectionChanged SelectionUpdate;
         public delegate void ConnectedHandler(string[] ssNames);
         public event ConnectedHandler Connected;
         public delegate void ErrorHandler(string err);
         public event ErrorHandler Error;
+
+        // Testing event
+        public delegate void UpdateTest(string message);
+        public event UpdateTest testUpdate;
 
         // private variables
         private String userName;
@@ -44,7 +48,7 @@ namespace Controller
         /// </summary>
         /// <param name="address">Address of the server to connect to </param>
         /// <param name="name">The user's input name</param>
-        public void Connect(string address, string name)
+        public virtual void Connect(string address, string name)
         {
             // save the name of the client connecting
             userName = name;
@@ -105,7 +109,8 @@ namespace Controller
             {
                 // split it into actual messages
                 // send the spreadsheet names to the GUI
-                Connected(Regex.Split(jsonInfo.ToString(), @"(?<=[\n])"));
+                if(Connected != null)
+                    Connected(Regex.Split(jsonInfo.ToString(), @"(?<=[\n])"));
             }
             // Continue gathering startup data
             else
@@ -246,6 +251,10 @@ namespace Controller
             {
                 ssUpdate();
             }
+
+            // For testing purposes.
+            if (testUpdate != null)
+                testUpdate(instruction);
 
         }
 

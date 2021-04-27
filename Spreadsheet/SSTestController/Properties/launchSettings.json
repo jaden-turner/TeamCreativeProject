@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SSClientTests": {
+      "commandName": "Project",
+      "commandLineArgs": "69.27.24.190 Jamie"
+    }
+  }
+}

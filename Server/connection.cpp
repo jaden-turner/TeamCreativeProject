@@ -8,6 +8,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
+#include "Json/single_include/json.hpp"
 
 using boost::asio::ip::tcp;
 
@@ -17,6 +18,12 @@ class connection
 {
 
 public:
+
+
+
+
+
+
 	/*
 	* Constructor; instant assign to remove chance for incomplete connection object
 	*/
@@ -25,6 +32,12 @@ public:
 		instance_(instance)
 	{}
 
+
+
+
+
+
+
 	/*
 	* Getter for the socket object
 	*/
@@ -32,6 +45,12 @@ public:
 	{
 		return socket_;
 	}
+
+
+
+
+
+
 
 	/*
 	* Method called by the server to begin the client connection process
@@ -42,6 +61,14 @@ public:
 		boost::asio::async_read_until(socket_, message_, "\n\n",
 			boost::bind(&connection::process_name, shared_from_this()));
 	}
+
+
+
+
+
+
+
+
 
 	/*
 	* First step of the handshake.
@@ -66,6 +93,11 @@ public:
 			boost::bind(&connection::read_filename, shared_from_this()));
 	}
 
+
+
+
+
+
 	/*
 	* Intermediate call to get the desired spreadsheet name from the client
 	*/
@@ -76,11 +108,17 @@ public:
 			boost::bind(&connection::process_filename, shared_from_this()));
 	}
 
+
+
+
+
+
+
 	/*
 	* Retreives the filename from client input.
 	* Begins the loop to start reading and writing to the client
 	* upon spreadsheet update.
-	* 
+	*
 	* TODO: spreadsheet part not yet implemented
 	*/
 	void process_filename()
@@ -93,7 +131,16 @@ public:
 			boost::asio::buffer(message_), "\n",
 			boost::bind(&connection::write, shared_from_this()));
 		instance_.join(shared_from_this(), );
+		//todo::CREATE WORKING SHEET
 	}
+
+
+
+
+
+
+
+
 	/*
 	* Waits for a new update from the client, then calls write method
 	*/
@@ -102,7 +149,55 @@ public:
 		boost::asio::async_read_until(socket_,
 			boost::asio::buffer(message_), "\n",
 			boost::bind(&connection::write, shared_from_this()));
+			//read in the message
+			std::istream is(&buffer(message_));
+			std::string msg;
+
+			//get the message and store it in msg
+			std::getline(is, msg);
+
+			//Parse Json
+			nlohmann::json decodedMessage = nlohmann::json::parse(msg);
+			std::string requestType = decodedMessage.value("requestType", "none");
+			switch(fName){
+				if(requestType=="editCell"){
+					//Update cell in spreadsheet
+					std::string cell = decodedMessage.value("cellName", "none");
+					std::string update = decodedMessage.value("contents", "none");
+					this.workingSheet->updateCell(cell, update);
+					std::string message = "{\"messageType\":\"editCell\", \"cellName\": \""+cell+"\",\"contents\":\""+update+"\"}";
+				}
+
+				else if(requestType=="selectCell"){
+					//Open and create spreadsheet
+					std::string cell = decodedMessage.value("cellName", "none");
+					//TODO: We need to get the selector id
+					std::string highlightMessage = "{\"messageType\":\"cellSelected\", \"cellName\": \""+cell+"\", \"selector\": \""+selectorId+"\",\"selectorName\":\""+this.name_+"\"}";
+					this.workingSheet->broadcastToAll(highlightMessage);
+				}
+
+				else if(requestType=="undo"){
+					//Undo
+					this.workingSheet->undo();
+				}
+
+				else if(requestType=="revertCell"){
+					//Revert
+					this.workingSheet->revert();
+				}
+				else{
+					//Data is unreadable. Send a connectionerror message
+				}
+			}
 	}
+
+
+
+
+
+
+
+
 
 	/*
 	* IN PROGRESS
@@ -114,6 +209,14 @@ public:
 		instance_.deliver(message_);
 		read();
 	}
+
+
+
+
+
+
+
+
 
 	/*
 	* IN PROGRESS
@@ -133,9 +236,14 @@ public:
 		}*/
 	}
 
+
+
+
+
 private:
 	boost::asio::streambuf message_;
 	std::string name_, filename_;
+	spreadsheet_instance *workingSheet;
 };
 
 typedef boost::shared_ptr<connection> session_ptr;
